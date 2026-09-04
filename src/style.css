@@ -1,0 +1,1289 @@
+/* =====================================================================
+   ULTRA-LUXURIOUS ARABIC WEDDING INVITATION
+   Design System & Animation Styles
+   ===================================================================== */
+
+/* ── Custom Properties ──────────────────────────────────────────────── */
+:root {
+  --ivory: #fffdf7;
+  --cream: #f5ece0;
+  --champagne: #f0e6d2;
+  --gold-primary: #c5a059;
+  --gold-bright: #e5c158;
+  --gold-dark: #a48039;
+  --gold-deep: #8b6914;
+  --gold-metallic: linear-gradient(
+    135deg,
+    #bf953f 0%,
+    #fcf6ba 25%,
+    #b38728 50%,
+    #fbf5b7 75%,
+    #aa771c 100%
+  );
+  --gold-subtle: rgba(197, 160, 89, 0.15);
+  --text-dark: #36261c;
+  --text-body: #4a3728;
+  --text-muted: #6b554a;
+  --white: #ffffff;
+  --rose-pink: #f5d5c8;
+  --shadow-soft: 0 8px 32px rgba(197, 160, 89, 0.12);
+  --shadow-elevated: 0 20px 60px rgba(60, 45, 30, 0.15);
+  --shadow-glow: 0 0 40px rgba(229, 193, 88, 0.3);
+  --glass-bg: rgba(255, 253, 247, 0.65);
+  --glass-border: rgba(197, 160, 89, 0.3);
+  --glass-blur: blur(16px);
+  --font-calligraphy: "Aref Ruqaa", serif;
+  --font-heading: "Amiri", serif;
+  --font-body: "Reem Kufi", sans-serif;
+  --ease-luxe: cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  overflow-x: hidden;
+  width: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  direction: rtl;
+  text-align: center;
+  color: var(--text-dark);
+  background: var(--ivory);
+  min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
+  position: relative;
+  line-height: 1.8;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Particle Canvas ────────────────────────────────────────────────── */
+#particles-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* ── Audio Toggle ───────────────────────────────────────────────────── */
+#audio-toggle {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 9999;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2px solid var(--gold-primary);
+  background: rgba(255, 253, 247, 0.9);
+  backdrop-filter: blur(10px);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s var(--ease-luxe);
+  box-shadow: var(--shadow-soft);
+  opacity: 0;
+  pointer-events: none;
+}
+#audio-toggle.visible {
+  opacity: 1;
+  pointer-events: all;
+}
+#audio-toggle:hover {
+  transform: scale(1.1);
+  box-shadow: var(--shadow-glow);
+}
+#audio-toggle svg {
+  width: 22px;
+  height: 22px;
+  fill: var(--gold-dark);
+}
+#audio-toggle.muted svg .sound-wave {
+  display: none;
+}
+
+/* =====================================================================
+   STAGE 1: FULLSCREEN IMMERSIVE ENVELOPE
+   ===================================================================== */
+#envelope-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  overflow: hidden;
+  /* Transition for the entire screen sliding away */
+  transition: none;
+}
+
+#envelope-screen.hidden {
+  pointer-events: none;
+  visibility: hidden;
+}
+
+/* ── Fullscreen Envelope Body ───────────────────────────────────────── */
+.env-body {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    160deg,
+    #f7edde 0%,
+    #f0e4d0 25%,
+    #ead9c4 50%,
+    #f2e8d8 75%,
+    #f5ede2 100%
+  );
+  overflow: hidden;
+}
+
+/* Paper texture noise */
+.env-texture {
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  pointer-events: none;
+}
+
+/* Subtle radial glow behind the seal area */
+.env-body::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(
+    circle,
+    rgba(229, 193, 88, 0.08) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+/* ── Gold Corner Accents ────────────────────────────────────────────── */
+.env-corner {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  z-index: 2;
+}
+@media (min-width: 768px) {
+  .env-corner {
+    width: 150px;
+    height: 150px;
+  }
+}
+
+.env-corner::before,
+.env-corner::after {
+  content: "";
+  position: absolute;
+  background: linear-gradient(135deg, #d4af37, #fcf6ba 40%, #c5a059);
+}
+
+/* Top-left corner */
+.env-corner-tl {
+  top: 12px;
+  left: 12px;
+}
+.env-corner-tl::before {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2.5px;
+  box-shadow: 0 3px 0 0 rgba(197, 160, 89, 0.15);
+}
+.env-corner-tl::after {
+  top: 0;
+  left: 0;
+  width: 2.5px;
+  height: 100%;
+  box-shadow: 3px 0 0 0 rgba(197, 160, 89, 0.15);
+}
+
+/* Top-right corner */
+.env-corner-tr {
+  top: 12px;
+  right: 12px;
+}
+.env-corner-tr::before {
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 2.5px;
+}
+.env-corner-tr::after {
+  top: 0;
+  right: 0;
+  width: 2.5px;
+  height: 100%;
+}
+
+/* Bottom-left corner */
+.env-corner-bl {
+  bottom: 12px;
+  left: 12px;
+}
+.env-corner-bl::before {
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2.5px;
+}
+.env-corner-bl::after {
+  bottom: 0;
+  left: 0;
+  width: 2.5px;
+  height: 100%;
+}
+
+/* Bottom-right corner */
+.env-corner-br {
+  bottom: 12px;
+  right: 12px;
+}
+.env-corner-br::before {
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 2.5px;
+}
+.env-corner-br::after {
+  bottom: 0;
+  right: 0;
+  width: 2.5px;
+  height: 100%;
+}
+
+/* ── Envelope Decorative Diagonal Lines ─────────────────────────────── */
+.env-body::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 40px,
+    rgba(197, 160, 89, 0.04) 40px,
+    rgba(197, 160, 89, 0.04) 41px
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Floral corners initial state */
+.floral-corner {
+  opacity: 0;
+}
+
+/* ── Postage-style Perforated Inner Border ───────────────────────────── */
+.env-inner-border {
+  position: absolute;
+  top: 28px;
+  left: 28px;
+  right: 28px;
+  bottom: 28px;
+  border: none;
+  outline: 2px dashed rgba(197, 160, 89, 0.25);
+  outline-offset: 0;
+  pointer-events: none;
+  z-index: 1;
+  border-radius: 2px;
+}
+.env-inner-border::before {
+  content: "";
+  position: absolute;
+  inset: 6px;
+  border: 1px solid rgba(197, 160, 89, 0.12);
+  border-radius: 1px;
+}
+@media (min-width: 768px) {
+  .env-inner-border {
+    top: 42px;
+    left: 42px;
+    right: 42px;
+    bottom: 42px;
+  }
+}
+
+/* ── Envelope SVG Ornamental Corners ────────────────────────────────── */
+.env-ornament {
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  z-index: 3;
+  opacity: 0.65;
+}
+@media (min-width: 768px) {
+  .env-ornament {
+    width: 100px;
+    height: 100px;
+  }
+}
+.env-orn-tl {
+  top: 28px;
+  left: 28px;
+  transform: rotate(0deg);
+}
+.env-orn-tr {
+  top: 28px;
+  right: 28px;
+  transform: rotate(90deg);
+}
+.env-orn-bl {
+  bottom: 28px;
+  left: 28px;
+  transform: rotate(270deg);
+}
+.env-orn-br {
+  bottom: 28px;
+  right: 28px;
+  transform: rotate(180deg);
+}
+@media (min-width: 768px) {
+  .env-orn-tl {
+    top: 42px;
+    left: 42px;
+  }
+  .env-orn-tr {
+    top: 42px;
+    right: 42px;
+  }
+  .env-orn-bl {
+    bottom: 42px;
+    left: 42px;
+  }
+  .env-orn-br {
+    bottom: 42px;
+    right: 42px;
+  }
+}
+
+/* ── Top Flap ───────────────────────────────────────────────────────── */
+.env-flap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 45vh;
+  z-index: 5;
+  transform-origin: top center;
+  transform-style: preserve-3d;
+  perspective: 1500px;
+  /* Will be animated by GSAP */
+}
+
+.env-flap-face {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    #ede2d0 0%,
+    #e6d8c4 30%,
+    #dfd0ba 60%,
+    #d8c8ae 100%
+  );
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* Subtle inner border on flap */
+.env-flap-face::after {
+  content: "";
+  position: absolute;
+  top: 8%;
+  left: 8%;
+  right: 8%;
+  bottom: 15%;
+  clip-path: polygon(5% 0%, 95% 0%, 50% 88%);
+  border: 1px solid rgba(197, 160, 89, 0.15);
+  pointer-events: none;
+}
+
+/* ── Decorative Text Above Seal ─────────────────────────────────────── */
+.env-top-text {
+  position: absolute;
+  top: max(46vh, 200px);
+  left: 50%;
+  transform: translateX(-50%) translateY(-80px);
+  z-index: 8;
+  font-family: var(--font-calligraphy);
+  font-size: 1.1rem;
+  color: var(--gold-dark);
+  opacity: 0.6;
+  white-space: nowrap;
+  letter-spacing: 1px;
+}
+
+@media (min-width: 768px) {
+  .env-top-text {
+    font-size: 1.4rem;
+    transform: translateX(-50%) translateY(-100px);
+  }
+}
+
+/* ── WAX SEAL (centered on screen) ──────────────────────────────────── */
+.wax-seal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  width: 110px;
+  height: 110px;
+}
+
+@media (min-width: 768px) {
+  .wax-seal {
+    width: 140px;
+    height: 140px;
+  }
+}
+
+.seal-glow {
+  position: absolute;
+  inset: -30px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(229, 193, 88, 0.5) 0%,
+    transparent 70%
+  );
+  opacity: 0;
+}
+
+.seal-body {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--gold-metallic);
+  box-shadow:
+    0 6px 30px rgba(164, 128, 57, 0.5),
+    0 3px 10px rgba(0, 0, 0, 0.2),
+    inset 0 2px 6px rgba(255, 255, 255, 0.4),
+    inset 0 -3px 6px rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: sealPulse 2.5s ease-in-out infinite;
+}
+
+.seal-body::before {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.seal-body::after {
+  content: "";
+  position: absolute;
+  inset: 14px;
+  border-radius: 50%;
+  border: 1px dashed rgba(255, 255, 255, 0.2);
+}
+
+.seal-rings-svg {
+  width: 55px;
+  height: 55px;
+}
+
+@media (min-width: 768px) {
+  .seal-rings-svg {
+    width: 70px;
+    height: 70px;
+  }
+}
+
+@keyframes sealPulse {
+  0%,
+  100% {
+    box-shadow:
+      0 6px 30px rgba(164, 128, 57, 0.5),
+      0 0 0 0 rgba(229, 193, 88, 0.4);
+  }
+  50% {
+    box-shadow:
+      0 6px 30px rgba(164, 128, 57, 0.5),
+      0 0 0 25px rgba(229, 193, 88, 0);
+  }
+}
+
+/* ── Couple Initials Below Seal ─────────────────────────────────────── */
+.env-bottom-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(80px);
+  z-index: 8;
+  font-family: var(--font-calligraphy);
+  font-size: 1.6rem;
+  color: var(--gold-dark);
+  opacity: 0.7;
+  letter-spacing: 6px;
+  white-space: nowrap;
+}
+
+@media (min-width: 768px) {
+  .env-bottom-text {
+    font-size: 2rem;
+    transform: translateX(-50%) translateY(100px);
+  }
+}
+
+/* ── Click Prompt ───────────────────────────────────────────────────── */
+.open-prompt {
+  position: absolute;
+  bottom: 12vh;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  white-space: nowrap;
+}
+
+.open-prompt span {
+  font-family: var(--font-calligraphy);
+  font-size: 1.2rem;
+  color: var(--gold-dark);
+  animation: promptGlow 2.2s ease-in-out infinite;
+}
+
+@media (min-width: 768px) {
+  .open-prompt span {
+    font-size: 1.5rem;
+  }
+}
+
+.prompt-line {
+  width: 40px;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--gold-primary),
+    transparent
+  );
+  opacity: 0.5;
+}
+
+@media (min-width: 768px) {
+  .prompt-line {
+    width: 70px;
+  }
+}
+
+@keyframes promptGlow {
+  0%,
+  100% {
+    opacity: 0.5;
+    text-shadow: 0 0 10px rgba(229, 193, 88, 0);
+  }
+  50% {
+    opacity: 1;
+    text-shadow: 0 0 25px rgba(229, 193, 88, 0.5);
+  }
+}
+
+/* =====================================================================
+   STAGE 2: MAIN INVITATION PAGE
+   ===================================================================== */
+#invitation-page {
+  position: relative;
+  z-index: 2;
+  min-height: 100vh;
+  opacity: 0;
+  visibility: hidden;
+}
+
+#invitation-page.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* ── Invitation Card Container ──────────────────────────────────────── */
+.invitation-card {
+  position: relative;
+  max-width: 820px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2rem 1.2rem 3rem;
+  overflow: hidden;
+  background:
+    radial-gradient(
+      ellipse at 50% 0%,
+      rgba(229, 193, 88, 0.12) 0%,
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse at 90% 40%,
+      rgba(245, 213, 200, 0.25) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      ellipse at 10% 80%,
+      rgba(229, 193, 88, 0.12) 0%,
+      transparent 60%
+    ),
+    var(--ivory);
+}
+
+@media (min-width: 768px) {
+  .invitation-card {
+    padding: 3rem 2.5rem 4rem;
+  }
+}
+
+/* ── Floral Corner Ornaments ─────────────────────────────────────────── */
+.floral-corner {
+  position: absolute;
+  width: 220px;
+  height: auto;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0; /* starts hidden — GSAP fades in with the page */
+}
+@media (min-width: 768px) {
+  .floral-corner {
+    width: 300px;
+  }
+}
+@media (min-width: 1024px) {
+  .floral-corner {
+    width: 360px;
+  }
+}
+
+/* Image has flowers in TOP-LEFT — flip horizontally for top-right */
+.floral-top-right {
+  top: 0;
+  right: 0;
+  transform: scaleX(-1);
+}
+
+/* Flip both axes for bottom-left */
+.floral-bottom-left {
+  bottom: 0;
+  left: 0;
+  transform: scaleY(-1);
+}
+
+/* ── Golden Arch Frame ──────────────────────────────────────────────── */
+.arch-frame {
+  position: relative;
+  max-width: 700px;
+  margin: 0 auto 1rem;
+}
+.arch-frame svg {
+  width: 100%;
+  height: auto;
+}
+
+/* ── Ornamental Divider ─────────────────────────────────────────────── */
+.ornamental-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin: 1.5rem auto;
+  max-width: 300px;
+}
+.ornamental-divider::before,
+.ornamental-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--gold-primary) 50%,
+    transparent 100%
+  );
+}
+.ornamental-divider .divider-icon {
+  color: var(--gold-primary);
+  font-size: 1rem;
+}
+
+/* ── Section Base ───────────────────────────────────────────────────── */
+.inv-section {
+  position: relative;
+  z-index: 1;
+  margin-bottom: 2.5rem;
+  opacity: 0;
+  transform: translateY(30px);
+}
+@media (min-width: 768px) {
+  .inv-section {
+    margin-bottom: 3rem;
+  }
+}
+
+/* ── Bismillah ──────────────────────────────────────────────────────── */
+.bismillah {
+  font-family: var(--font-calligraphy);
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--gold-dark);
+  line-height: 2;
+  margin-bottom: 0.5rem;
+}
+@media (min-width: 768px) {
+  .bismillah {
+    font-size: 3rem;
+  }
+}
+
+/* ── Quranic Verse ──────────────────────────────────────────────────── */
+.verse-container {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 1.5rem 1.2rem;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(8px);
+  border-radius: 16px;
+  border: 1px dashed rgba(197, 160, 89, 0.4);
+  box-shadow: var(--shadow-soft);
+}
+@media (min-width: 768px) {
+  .verse-container {
+    padding: 2rem 2.5rem;
+  }
+}
+.quran-verse {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  color: var(--text-dark);
+  line-height: 2.2;
+  margin-bottom: 0.5rem;
+}
+@media (min-width: 768px) {
+  .quran-verse {
+    font-size: 1.4rem;
+  }
+}
+.quran-ref {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: var(--gold-dark);
+  font-weight: 600;
+}
+
+/* ── Greeting ───────────────────────────────────────────────────────── */
+.greeting-text {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  color: var(--text-body);
+  line-height: 2.2;
+  margin-bottom: 0.2rem;
+}
+@media (min-width: 768px) {
+  .greeting-text {
+    font-size: 1.35rem;
+  }
+}
+.family-label {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  color: var(--text-body);
+  margin-bottom: 0.5rem;
+}
+.family-names-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin: 0.8rem 0;
+}
+/* Use Amiri instead of Aref Ruqaa — less vertical elevation on glyphs like ف */
+.family-name {
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+  color: var(--gold-dark);
+  font-weight: 700;
+  line-height: 1.8;
+}
+@media (min-width: 768px) {
+  .family-name {
+    font-size: 1.65rem;
+  }
+}
+.family-ampersand {
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  color: var(--gold-primary);
+}
+.invitation-line {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  color: var(--text-body);
+  margin-top: 0.5rem;
+}
+
+/* ── Couple Names ───────────────────────────────────────────────────── */
+.couple-names-container {
+  margin: 2rem 0 1rem;
+}
+.couple-names-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  flex-wrap: nowrap;
+}
+.couple-name {
+  font-family: var(--font-calligraphy);
+  font-size: 3.2rem;
+  font-weight: 700;
+  line-height: 1.3;
+  background: var(--gold-metallic);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  background-size: 200% 100%;
+  animation: goldShimmer 4s ease-in-out infinite;
+}
+@media (min-width: 768px) {
+  .couple-name {
+    font-size: 4.5rem;
+  }
+}
+@keyframes goldShimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+.rings-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 0.3rem;
+}
+.rings-icon svg {
+  width: 50px;
+  height: 50px;
+}
+@media (min-width: 768px) {
+  .rings-icon svg {
+    width: 70px;
+    height: 70px;
+  }
+}
+.mashia-text {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  color: var(--text-body);
+  margin-top: 0.8rem;
+}
+
+/* ── Glassmorphism Cards ────────────────────────────────────────────── */
+.details-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  max-width: 700px;
+  margin: 0 auto;
+}
+@media (min-width: 640px) {
+  .details-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.2rem;
+  }
+}
+
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  padding: 1.8rem 1.2rem;
+  text-align: center;
+  box-shadow: var(--shadow-soft);
+  transition: all 0.4s var(--ease-luxe);
+  position: relative;
+  overflow: hidden;
+}
+.glass-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(229, 193, 88, 0.08),
+    transparent
+  );
+  transition: left 0.6s ease;
+}
+.glass-card:hover::before {
+  left: 150%;
+}
+.glass-card:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: var(--shadow-glow), var(--shadow-elevated);
+  border-color: var(--gold-primary);
+}
+
+.card-icon-circle {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--gold-subtle);
+  border: 1.5px solid rgba(197, 160, 89, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+}
+.card-icon-circle svg {
+  width: 26px;
+  height: 26px;
+  stroke: var(--gold-dark);
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.glass-card .card-label {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: var(--gold-primary);
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+}
+.glass-card .card-value {
+  font-family: var(--font-calligraphy);
+  font-size: 1.3rem;
+  color: var(--text-dark);
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+  line-height: 1.5;
+}
+.glass-card .card-sub {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.card-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 0.8rem;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--gold-dark);
+  background: rgba(197, 160, 89, 0.1);
+  border: 1px solid rgba(197, 160, 89, 0.25);
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.card-action-btn:hover {
+  background: var(--gold-dark);
+  color: var(--white);
+  border-color: var(--gold-dark);
+}
+.card-action-btn svg {
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+}
+
+/* ── QR Code ────────────────────────────────────────────────────────── */
+.qr-wrapper {
+  position: relative;
+  display: inline-block;
+  padding: 16px;
+  background: var(--white);
+  border-radius: 16px;
+  border: 2px solid rgba(197, 160, 89, 0.25);
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+}
+.qr-wrapper::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent 40%,
+    rgba(229, 193, 88, 0.15) 50%,
+    transparent 60%
+  );
+  animation: qrShimmer 3s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes qrShimmer {
+  0% {
+    transform: translateX(-100%) translateY(-100%);
+  }
+  100% {
+    transform: translateX(100%) translateY(100%);
+  }
+}
+.qr-wrapper canvas,
+.qr-wrapper img {
+  display: block;
+  border-radius: 4px;
+}
+.qr-label {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-top: 0.8rem;
+}
+.qr-pin-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+.qr-pin-icon svg {
+  width: 32px;
+  height: 32px;
+  fill: var(--gold-primary);
+}
+
+/* ── Couple Photo ───────────────────────────────────────────────────── */
+.photo-frame {
+  position: relative;
+  max-width: 380px;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0 auto;
+  padding: 14px;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  box-shadow: var(--shadow-soft), var(--shadow-elevated);
+  z-index: 1;
+}
+@media (min-width: 768px) {
+  .photo-frame {
+    max-width: 500px;
+    padding: 18px;
+  }
+}
+
+.kids-photo {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 12px;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.photo-overlay {
+  position: absolute;
+  inset: 14px;
+  border-radius: 12px;
+  background: linear-gradient(
+    to bottom,
+    transparent 60%,
+    rgba(197, 160, 89, 0.2)
+  );
+  pointer-events: none;
+}
+@media (min-width: 768px) {
+  .photo-overlay {
+    inset: 18px;
+  }
+}
+
+.photo-corner {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  z-index: 2;
+}
+.photo-tl {
+  top: 6px;
+  left: 6px;
+}
+.photo-tr {
+  top: 6px;
+  right: 6px;
+}
+.photo-bl {
+  bottom: 6px;
+  left: 6px;
+}
+.photo-br {
+  bottom: 6px;
+  right: 6px;
+}
+
+/* ── Closing Footer ─────────────────────────────────────────────────── */
+.closing-section {
+  padding-top: 2rem;
+  border-top: 1px solid rgba(197, 160, 89, 0.2);
+}
+.closing-primary {
+  font-family: var(--font-calligraphy);
+  font-size: 1.5rem;
+  color: var(--gold-dark);
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  line-height: 2;
+}
+@media (min-width: 768px) {
+  .closing-primary {
+    font-size: 1.8rem;
+  }
+}
+.closing-secondary {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+}
+.closing-badge {
+  display: inline-block;
+  padding: 8px 24px;
+  background: var(--gold-subtle);
+  border: 1px solid rgba(197, 160, 89, 0.3);
+  border-radius: 30px;
+  font-family: var(--font-calligraphy);
+  font-size: 1rem;
+  color: var(--gold-dark);
+  font-weight: 600;
+}
+
+/* ── Utilities ──────────────────────────────────────────────────────── */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.section-label {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold-primary);
+  font-weight: 700;
+  margin-bottom: 0.8rem;
+}
+.section-heading {
+  font-family: var(--font-calligraphy);
+  font-size: 1.8rem;
+  color: var(--gold-dark);
+  margin-bottom: 1.2rem;
+}
+
+/* Countdown */
+.countdown-grid {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 1rem;
+}
+@media (min-width: 768px) {
+  .countdown-grid {
+    gap: 16px;
+  }
+}
+.countdown-tile {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  padding: 1rem 0.8rem;
+  min-width: 70px;
+  box-shadow: var(--shadow-soft);
+}
+@media (min-width: 768px) {
+  .countdown-tile {
+    min-width: 90px;
+    padding: 1.2rem 1rem;
+  }
+}
+.countdown-tile .count-value {
+  display: block;
+  font-family: var(--font-calligraphy);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--gold-dark);
+  line-height: 1;
+}
+@media (min-width: 768px) {
+  .countdown-tile .count-value {
+    font-size: 2.6rem;
+  }
+}
+.countdown-tile .count-label {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 600;
+  margin-top: 4px;
+}
+
+/* Parallax tilt */
+.tilt-element {
+  transition: transform 0.1s ease-out;
+  will-change: transform;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--ivory);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(197, 160, 89, 0.4);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gold-primary);
+}
+::selection {
+  background: rgba(197, 160, 89, 0.25);
+  color: var(--text-dark);
+}
